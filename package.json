@@ -4,7 +4,7 @@
   "description": "Homework 10 for the UW full stack coding bootcamp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
