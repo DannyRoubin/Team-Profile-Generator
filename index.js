@@ -40,3 +40,33 @@ function createManager() {
   team.push(manager);
   menu();
 }
+
+function menu() {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "newEmployeeConfirm",
+        message: "Would you like to add another employee",
+      },
+    ])
+    .then((answer) => {
+      if (answer.newEmployeeConfirm == true) {
+        newEmployee();
+      } else {
+        console.log("The page is being created");
+        //create the html
+      }
+    });
+}
+
+function newEmployee() {
+  inquirer.prompt([
+    {
+      type: "list",
+      name: "employeeRole",
+      message: "Select if you want to add an engineer or an intern",
+      choices: ["Engineer", "Intern"],
+    },
+  ]);
+}
