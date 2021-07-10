@@ -89,11 +89,83 @@ function newEmployee() {
     ])
     .then(({ employeeRole }) => {
       if (employeeRole == "Engineer") {
-        // createEngineer();
         console.log("You chose an engineer");
+        createEngineer();
       } else if (role == "Intern") {
-        // createIntern();
         console.log("You chose an Intern");
+        createIntern();
       }
+    });
+}
+
+function createEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeName",
+        message: "Enter the name of the engineer",
+      },
+      {
+        type: "input",
+        name: "employeeId",
+        message: "Enter the ID of the engineer",
+      },
+      {
+        type: "input",
+        name: "employeeEmail",
+        message: "Enter the email of the engineer",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Enter the github for the engineer",
+      },
+    ])
+    .then(({ employeeName, employeeId, employeeEmail, github }) => {
+      const engineer = new Engineer(
+        employeeName,
+        employeeId,
+        employeeEmail,
+        github
+      );
+      team.push(engineer);
+      menu();
+    });
+}
+
+function createIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeName",
+        message: "Enter the name of the intern",
+      },
+      {
+        type: "input",
+        name: "employeeId",
+        message: "Enter the ID of the intern",
+      },
+      {
+        type: "input",
+        name: "employeeEmail",
+        message: "Enter the email of the intern",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "Enter the school for the intern",
+      },
+    ])
+    .then(({ employeeName, employeeId, employeeEmail, school }) => {
+      const intern = new Intern(
+        employeeName,
+        employeeId,
+        employeeEmail,
+        school
+      );
+      team.push(intern);
+      menu();
     });
 }
