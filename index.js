@@ -221,8 +221,40 @@ function createCardsHTML(team) {
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">ID: ${employeeId}</li>
-        <li class="list-group-item">Email: ${employeeEmail}</li>
+        <li class="list-group-item">Email: <a href = 'mailto:${employeeEmail}'> ${employeeEmail}</a></li>
         <li class="list-group-item">Office Number: ${officeNum}</li>
+      </ul>
+    </div>`;
+    } else if (employeeRole == "Engineer") {
+      const githubHandle = teammate.getGithub();
+      htmlCards = `<div
+      class="card"
+      style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
+    >
+      <div class="card-body">
+        <h5 class="card-title">${employeeName}</h5>
+        <p class="card-text">${employeeRole}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${employeeId}</li>
+        <li class="list-group-item">Email: <a href = 'mailto:${employeeEmail}'> ${employeeEmail}</a></li>
+        <li class="list-group-item">Github: <a href="https://github.com/${githubHandle}" ${githubHandle}</a></li>
+      </ul>
+    </div>`;
+    } else if (employeeRole == "Intern") {
+      const internSchool = teammate.getSchool();
+      htmlCards = `<div
+      class="card"
+      style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
+    >
+      <div class="card-body">
+        <h5 class="card-title">${employeeName}</h5>
+        <p class="card-text">${employeeRole}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${employeeId}</li>
+        <li class="list-group-item">Email: <a href = 'mailto:${employeeEmail}'> ${employeeEmail}</a></li>
+        <li class="list-group-item">School: ${internSchool}</li>
       </ul>
     </div>`;
     }
