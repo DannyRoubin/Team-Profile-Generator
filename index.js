@@ -50,6 +50,7 @@ function createManager() {
               officeNumber
             );
             team.push(manager);
+            createBaseHTML();
             menu();
           });
       } else {
@@ -168,4 +169,34 @@ function createIntern() {
       team.push(intern);
       menu();
     });
+}
+
+function createBaseHTML() {
+  const headerPortion = `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      />
+      <title>Team Profile Generator</title>
+    </head>
+    <body>
+    <!-- Header -->
+    <div
+      style="background-color: lightsalmon; color: white"
+      class="jumbotron jumbotron-fluid"
+    >
+      <h1 style="text-align: center">My Team</h1>
+    </div>
+    <!-- Body -->
+    <div style="margin-left: 2rem; margin-right: 2rem" class="row">`;
+
+  fs.writeFile("teamProfile.html", headerPortion, (err) =>
+    err
+      ? console.log(err)
+      : console.log("Successfully loaded the first portion")
+  );
 }
