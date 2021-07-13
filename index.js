@@ -1,14 +1,18 @@
+// Importing packages and classes
 const inquirer = require("inquirer");
 const fs = require("fs");
 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+// creates a blank team array to be able to store the teammates into
 var team = [];
 
+//calls the createManager function to begin the program
 createManager();
 
 function createManager() {
+  // runs inquirer a first time to get their confirmation to begin the program
   inquirer
     .prompt([
       {
@@ -17,8 +21,9 @@ function createManager() {
         message: "Would you like to create a new team?",
       },
     ])
+    // upon confirmation, rerun inquirer to run the rest of the questions for the manager
     .then((confirm) => {
-      if (confirm) {
+      if (confirm.newTeamConfirm == true) {
         inquirer
           .prompt([
             {
@@ -42,6 +47,7 @@ function createManager() {
               message: "Enter the office number for the manager",
             },
           ])
+          // then gather the pieces below and create a new manager using the manager class
           .then(({ employeeName, employeeId, employeeEmail, officeNumber }) => {
             const manager = new Manager(
               employeeName,
@@ -49,6 +55,7 @@ function createManager() {
               employeeEmail,
               officeNumber
             );
+            // afterwards push it into the blank team array
             team.push(manager);
             createBaseHTML();
             menu();
@@ -59,8 +66,9 @@ function createManager() {
     });
 }
 
+// menu function serves to determine if the program will be adding another employee or ending itself
+// with the information gathered up to this point
 function menu() {
-  console.log(team);
   inquirer
     .prompt([
       {
@@ -81,6 +89,7 @@ function menu() {
 
 function newEmployee() {
   inquirer
+    // has the user pick which of the two employee types they want to add to their team
     .prompt([
       {
         type: "list",
@@ -92,14 +101,17 @@ function newEmployee() {
     .then(({ employeeRole }) => {
       if (employeeRole == "Engineer") {
         console.log("You chose an engineer");
+        // if they chose to add an engineer then the createEngineer func is run
         createEngineer();
       } else if (employeeRole == "Intern") {
         console.log("You chose an Intern");
+        // if they chose to add an engineer then the createIntern func is run
         createIntern();
       }
     });
 }
 
+// this func is just like manager version of this, except it just records github instead of officeNum
 function createEngineer() {
   inquirer
     .prompt([
@@ -135,7 +147,7 @@ function createEngineer() {
       menu();
     });
 }
-
+// this func is just like manager version of this, except it just records school instead of officeNum
 function createIntern() {
   inquirer
     .prompt([
@@ -172,6 +184,7 @@ function createIntern() {
     });
 }
 
+// This func creates the start of the HTML file
 function createBaseHTML() {
   const headerPortion = `<!DOCTYPE html>
   <html lang="en">
@@ -202,6 +215,7 @@ function createBaseHTML() {
   );
 }
 
+// This func creates the individual cards for each of the employees
 function createCardsHTML(team) {
   var loopCount = 0;
   teamMemberCount = team.length;
@@ -228,7 +242,6 @@ function createCardsHTML(team) {
         <li class="list-group-item">Office Number: ${officeNum}</li>
       </ul>
     </div>`;
-      console.log("passes manager");
     } else if (employeeRole == "Engineer") {
       const githubHandle = teammate.getGithub();
       htmlCards = `<div
@@ -242,7 +255,7 @@ function createCardsHTML(team) {
       <ul class="list-group list-group-flush">
         <li class="list-group-item">ID: ${employeeId}</li>
         <li class="list-group-item">Email: <a href = 'mailto:${employeeEmail}'> ${employeeEmail}</a></li>
-        <li class="list-group-item">Github: <a href="https://github.com/${githubHandle}" ${githubHandle}</a></li>
+        <li class="list-group-item">Github: <a href="https://github.com/${githubHandle}"> ${githubHandle}</a></li>
       </ul>
     </div>`;
     } else if (employeeRole == "Intern") {
@@ -278,6 +291,7 @@ function createCardsHTML(team) {
   });
 }
 
+// func which renders the end of the html page
 function finalHTML() {
   const finalPortion = `</div>
   </body>
