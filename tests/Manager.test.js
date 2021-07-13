@@ -60,7 +60,7 @@ describe("Manager class", () => {
       54,
       "TimmyTheTinMan504@gmail.com",
       101
-    ).OfficeNumber();
+    ).officeNumber();
     expect(expectedOutcome).toEqual(testOfficeNum);
   });
 });
