@@ -200,3 +200,31 @@ function createBaseHTML() {
       : console.log("Successfully loaded the first portion")
   );
 }
+
+function createCardsHTML(team) {
+  team.forEach((teammate) => {
+    let htmlCards = "";
+    const employeeName = teammate.getName();
+    const employeeId = teammate.getId();
+    const employeeEmail = teammate.getEmail();
+    const employeeRole = teammate.getRole();
+
+    if (employeeRole == "Manager") {
+      const officeNum = teammate.officeNumber();
+      htmlCards = `<div
+      class="card"
+      style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
+    >
+      <div class="card-body">
+        <h5 class="card-title">${employeeName}</h5>
+        <p class="card-text">${employeeRole}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${employeeId}</li>
+        <li class="list-group-item">Email: ${employeeEmail}</li>
+        <li class="list-group-item">Office Number: ${officeNum}</li>
+      </ul>
+    </div>`;
+    }
+  });
+}
