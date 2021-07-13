@@ -202,6 +202,8 @@ function createBaseHTML() {
 }
 
 function createCardsHTML(team) {
+  var loopCount = 0;
+  teamMemberCount = team.length;
   team.forEach((teammate) => {
     let htmlCards = "";
     const employeeName = teammate.getName();
@@ -258,5 +260,18 @@ function createCardsHTML(team) {
       </ul>
     </div>`;
     }
+
+    fs.appendFile(
+      "teamProfile.html",
+      htmlCards,
+      (err) =>
+        err ? console.log(err) : console.log("Successfully created a card"),
+      loopCount++
+    );
+    if (loopCount == teamMemberCount) {
+      finalHTML();
+    }
   });
 }
+
+function finalHTML() {}
