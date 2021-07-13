@@ -60,6 +60,7 @@ function createManager() {
 }
 
 function menu() {
+  console.log(team);
   inquirer
     .prompt([
       {
@@ -73,7 +74,7 @@ function menu() {
         newEmployee();
       } else {
         console.log("The page is being created");
-        //create the html
+        createCardsHTML(team);
       }
     });
 }
@@ -92,7 +93,7 @@ function newEmployee() {
       if (employeeRole == "Engineer") {
         console.log("You chose an engineer");
         createEngineer();
-      } else if (role == "Intern") {
+      } else if (employeeRole == "Intern") {
         console.log("You chose an Intern");
         createIntern();
       }
@@ -212,7 +213,7 @@ function createCardsHTML(team) {
     const employeeRole = teammate.getRole();
 
     if (employeeRole == "Manager") {
-      const officeNum = teammate.officeNumber();
+      const officeNum = 13;
       htmlCards = `<div
       class="card"
       style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
@@ -227,8 +228,9 @@ function createCardsHTML(team) {
         <li class="list-group-item">Office Number: ${officeNum}</li>
       </ul>
     </div>`;
+      console.log("passes manager");
     } else if (employeeRole == "Engineer") {
-      const githubHandle = teammate.getGithub();
+      const githubHandle = "billy";
       htmlCards = `<div
       class="card"
       style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
@@ -261,17 +263,27 @@ function createCardsHTML(team) {
     </div>`;
     }
 
-    fs.appendFile(
-      "teamProfile.html",
-      htmlCards,
-      (err) =>
-        err ? console.log(err) : console.log("Successfully created a card"),
-      loopCount++
-    );
+    fs.appendFile("teamProfile.html", htmlCards, function (err) {
+      if (err) {
+        console.log(err);
+      }
+      loopCount++;
+      if (loopCount == teamMemberCount) {
+        finalHTML();
+      }
+    });
     if (loopCount == teamMemberCount) {
       finalHTML();
     }
   });
 }
 
-function finalHTML() {}
+function finalHTML() {
+  const finalPortion = `</div>
+  </body>
+</html>`;
+
+  fs.appendFile("teamProfile.html", finalPortion, (err) =>
+    err ? console.log(err) : console.log("Page is now complete")
+  );
+}
