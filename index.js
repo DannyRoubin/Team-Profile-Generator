@@ -213,7 +213,7 @@ function createCardsHTML(team) {
     const employeeRole = teammate.getRole();
 
     if (employeeRole == "Manager") {
-      const officeNum = 13;
+      const officeNum = teammate.officeNumber();
       htmlCards = `<div
       class="card"
       style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
@@ -230,7 +230,7 @@ function createCardsHTML(team) {
     </div>`;
       console.log("passes manager");
     } else if (employeeRole == "Engineer") {
-      const githubHandle = "billy";
+      const githubHandle = teammate.getGithub();
       htmlCards = `<div
       class="card"
       style="width: 18rem; margin-left: 1rem; margin-right: 1rem"
